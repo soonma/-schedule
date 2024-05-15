@@ -28,6 +28,9 @@ public class Schedule extends Timestamped {
     @Column
     private String passwd;
 
+//    public Schedule(){
+//    }
+
 
 
 

@@ -1,4 +1,9 @@
 package org.sparta.schedule.repository;
 
-public class ScheduleRepository {
+import org.sparta.schedule.entity.Schedule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+
 }
