@@ -28,6 +28,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // JPA 구현체인 hibernate
+    implementation 'org.hibernate:hibernate-core:6.1.7.Final'
+    // MySQL
+    implementation 'mysql:mysql-connector-java:8.4.0'
+    // JPA 설정
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 tasks.named('bootBuildImage') {
