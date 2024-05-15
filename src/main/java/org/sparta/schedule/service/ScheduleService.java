@@ -36,4 +36,8 @@ public class ScheduleService {
     public String deleteMemo(String title,String passwd) {
         return null;
     }
+
+    public String getLogin(String id, String passwd) {
+        return "Susess?";
+    }
 }
