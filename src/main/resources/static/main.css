@@ -347,3 +347,97 @@ section.notice {
     width: 1px;
     height: 1px;
 }
+
+
+/* 전체 요소 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 페이지 가운데 정렬 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f2f2f2;
+}
+
+/* 상세보기 컨테이너 스타일 */
+.detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 150px;
+    background-color: #fff;
+    border-radius: 100px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+}
+
+/* 게시글 제목 스타일 */
+.detail-container h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 게시글 정보 스타일 */
+.post-info {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+/* 게시글 내용 스타일 */
+.post-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 90px;
+}
+
+
+/* 댓글 스타일 */
+.comment {
+    margin-bottom: 50px;
+}
+
+/* 댓글 작성자 스타일 */
+.comment-author {
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* 댓글 내용 스타일 */
+.comment-text {
+    font-size: 14px;
+    color: #333;
+}
+
+/* 댓글 입력 폼 스타일 */
+.comment-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* 댓글 작성 버튼 스타일 */
+.submit-comment {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 댓글 작성 버튼 호버 스타일 */
+.back:hover .editrq:hover .edit:hover .cancleedit:hover .back:hover{
+    background-color: #555;
+}

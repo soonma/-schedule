@@ -33,9 +33,14 @@ public class ScheduleController {
         return scheduleService.getSchedule();
     }
 
-    @PutMapping("/memos/{id}") //요청된 자원을 수정한다.
-    public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
-        return scheduleService.updateMemo(id,requestDto);
+    @GetMapping("/selectDetail/{id}")//요청받은 URL 정보를 검색하여 응답한다
+    public ScheduleResponseDto getDetailSchedule(@PathVariable Long id) {
+        return scheduleService.getDetailSchedule(id);
+    }
+
+    @PutMapping("/edit/{id}/passwd/{passwd}") //요청된 자원을 수정한다.
+    public Long updateSchedule(@PathVariable Long id,@PathVariable String passwd, @RequestBody ScheduleRequestDto requestDto) {
+        return scheduleService.updateSchedule(id,passwd,requestDto);
     }
 
     @DeleteMapping("/memos/{id}") //요청된 자원을 삭제 할때 사용

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css"/>
+    <title>상세보기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        .edit {
+            display: none;
+        }
+        .cancleedit {
+            display: none;
+        }
+        .textareaedit{
+            display: none;
+        }
+        .titleEdit {
+            display: none;
+        }
+        .manageredit {
+            display: none;
+        }
+        .input{
+            display: none;
+        }
+
+    </style>
+    <script>
+        const id = window.localStorage.getItem('id');
+        //const id = 1;
+
+        // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
+        // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
+        function editPost() {
+            showEdits();
+            let contents = $(`#titleContent`).text().trim();
+            $(`#editcontent`).val(contents);
+            let title = $(`#title`).val().trim();
+            $(`#editcontent`).val(title);
+            let manager = $(`#manager`).val().trim();
+            $(`#manageredit`).val(manager);
+
+        }
+
+
+        function showEdits() {
+            $(`#editcontent`).show();
+            $(`#edit`).show();
+            $(`#cancleedit`).show();
+            $(`#titleEdit`).show();
+            $(`#manageredit`).show();
+            $(`#passwd`).show();
+
+            $(`#back`).hide();
+            $(`#editrq`).hide();
+            $(`#manager`).hide();
+            $(`#title`).hide();
+
+        }
+        function editCancle(){
+            window.location.reload();
+        }
+
+
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            getMessages();
+        })
+
+        // 메모를 불러와서 보여줍니다.
+        function getMessages() {
+
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: `/api/selectDetail/${id}`,
+                success: function (response) {
+                    let result = response;
+                    let id = result['id'];
+                    let title = result['title'];
+                    let titleContent = result['titleContent'];
+                    let manager = result['manager'];
+                    let tempHtml =
+                    <!-- 게시글 제목 -->
+                    `<div>
+                    <h1 >제목 </h1>
+                    <h1 id = "title">${title} </h1>
+                    <textarea class = "titleEdit" id="titleEdit"></textarea>
+                    <!-- 게시글 정보 -->
+                    <p class="post-info">작성일: 2023-08-30</p>
+                    <p class="post-info" id = "manager">담당자: ${manager} </p>
+                    <textarea class = "manageredit" id="manageredit"></textarea>
+
+                    <!-- 게시글 내용 -->
+                    <p class="post-content" id = "titleContent">
+                        ${titleContent}
+                        <h1>
+
+                            <h1>
+
+                    </p>
+                    <h1><h1>
+
+                    </h1>
+                    </h1>
+                </h1>
+                </h1> </div>
+                <div>
+                    <textarea  class="textareaedit" id="editcontent" ></textarea>
+                </div>`
+                    $('#box').append(tempHtml);
+                }
+
+            })
+
+        }
+
+        function compEdit(){
+
+            let titleContent = $(`#editcontent`).val().trim();
+            alert(titleContent);
+            let title = $(`#titleEdit`).val().trim();
+            let manager = $(`#manageredit`).val().trim();
+            let passwd = $(`#passwd`).val().trim();
+
+            // 3. 전달할 data JSON으로 만듭니다.
+            let data = {
+                'id': id,
+                'titleContent': titleContent,
+                'title': title,
+                'manager': manager,
+                'passwd': passwd
+            };
+
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/edit/${id}/passwd/${passwd}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지 변경에 성공하였습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+<!-- 상세보기 컨테이너 -->
+<div class="detail-container" >
+    <div id="box">
+
+    </div>
+
+    <div>
+        <input class="input" name="passwd" type="password" placeholder="Password" id="passwd">
+        <button  class = "back" id="back">뒤로 가기</button>
+        <button  class = "editrq" id = "editrq"onclick="editPost()">수정 하기</button>
+
+        <button class = "edit" id = "edit" onclick= "compEdit()">완료</button>
+        <button class = "cancleedit" id = "cancleedit" onclick="editCancle()">취소</button>
+
+    </div>
+</div>
+
+</body>
+
+</html>

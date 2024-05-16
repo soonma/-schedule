@@ -17,24 +17,29 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "title")
     private String title;
 
-    @Column
+    @Column(name = "titleContent")
     private String titleContent;
 
-    @Column
+    @Column(name = "manager")
     private String manager;
 
-    @Column
+    @Column(name = "passwd")
     private String passwd;
 
     public Schedule(ScheduleRequestDto requestDto){
-
         this.title = requestDto.getTitle();
         this.titleContent = requestDto.getTitleContent();
         this.manager = requestDto.getManager();
         this.passwd = requestDto.getPasswd();
     }
 
+    public void update(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.titleContent = requestDto.getTitleContent();
+        this.manager = requestDto.getManager();
+        this.passwd = requestDto.getPasswd();
+    }
 }

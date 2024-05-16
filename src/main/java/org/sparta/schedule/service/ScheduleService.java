@@ -9,6 +9,8 @@ import org.sparta.schedule.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 
@@ -43,8 +45,32 @@ public class ScheduleService {
 
     }
 
-    public Long updateMemo(Long id, ScheduleRequestDto requestDto) {
-        return null;
+    public ScheduleResponseDto getDetailSchedule(Long id) {
+        Schedule schedule = findSchedule(id);
+        System.out.println(id);
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+        return scheduleResponseDto;
+    }
+
+    @Transactional
+    public Long updateSchedule(Long id, String passwd, ScheduleRequestDto requestDto) {
+        Schedule schedule = findSchedule(id);
+
+        System.out.println(requestDto.getManager());
+        System.out.println(requestDto.getTitle());
+        System.out.println(requestDto.getTitleContent());
+        System.out.println(requestDto.getPasswd());
+
+
+
+        if(schedule.getPasswd().equals(passwd)){
+
+        schedule.update(requestDto);
+
+        return id;
+        } else {
+            throw new IllegalArgumentException("Wrong password");
+        }
     }
 
     public String deleteMemo(String title,String passwd) {
@@ -54,4 +80,10 @@ public class ScheduleService {
     public Long getLogin(Long id, String passwd) {
         return null;
     }
+
+
+    private Schedule findSchedule(Long id) {
+        return scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
+    }
+
 }
