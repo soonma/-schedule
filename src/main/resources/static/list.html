@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <title>Title</title>
+
+    <script>
+        let number= 0 ;
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            getMessages();
+        })
+
+        // 메모를 불러와서 보여줍니다.
+        function getMessages() {
+
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: '/api/selectAll',
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        let schedule = response[i];
+                        let id = schedule['id'];
+                        let title = schedule['title'];
+                        let manager = schedule['manager'];
+
+                        //let modifiedAt = message['modifiedAt'];
+
+                        let tempHtml= `<tr>
+                            <th>
+                                <a onclick="selectdetail(${id})" id = "title" >${title}</a>
+                            </th>
+                            <td>${manager}</td>
+                            <td>2017.07.13</td>
+                        </tr>`
+                        $('#box').append(tempHtml);
+
+                    }
+                }
+            })
+        }
+
+        function selectdetail(id){
+            window.localStorage.setItem('id', id);
+            window.location= "detail.html";
+        }
+
+        function sendwrite(){
+            window.location = "write.html";
+        }
+    </script>
+</head>
+<body>
+<section class="notice">
+    <div class="page-title">
+        <div class="container">
+            <h3>일정</h3>
+        </div>
+    </div>
+
+    <!-- board list area -->
+    <div id="board-list">
+    <div class="container">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-manager">담당자</th>
+                    <th scope="col" class="th-date">등록일</th>
+                </tr>
+                </thead>
+                <tbody id = "box">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button onclick="sendwrite()">작성하기</button>
+
+</section>
+</body>
+</html>
