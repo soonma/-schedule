@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class ScheduleResponseDto {
 
-    private String id;
+    private Long id;
     private String title;
     private String titleContent;
     private String manager;

@@ -35,7 +35,7 @@
 
             // 5. POST /api/memos 에 data를 전달합니다.
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "/api/login/",
                 contentType: "application/json",
                 data: JSON.stringify(data),
@@ -52,7 +52,7 @@
 <body>
 
 <div class="main">
-    <form class="form card">
+    <form class="form card" method="get">
         <div class="card_header">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path fill="none" d="M0 0h24v24H0z"></path>

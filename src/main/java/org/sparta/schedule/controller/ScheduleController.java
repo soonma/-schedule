@@ -3,36 +3,34 @@ package org.sparta.schedule.controller;
 import org.sparta.schedule.dto.ScheduleRequestDto;
 import org.sparta.schedule.dto.ScheduleResponseDto;
 import org.sparta.schedule.service.ScheduleService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
-@Controller
+
 @RestController
 @RequestMapping("/api")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-
     public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
     }
 
-    @PostMapping("/login/")
-    public String login(@RequestBody String id, @RequestBody String passwd){
+    @GetMapping("/login")
+    public Long login(@RequestBody Long id, @RequestBody String passwd){
         return scheduleService.getLogin(id, passwd);
     }
 
     @PostMapping("/write")//클라이언트의 요청 데이터(Request Body)를 서버에 생성할 때 사용
-    public ScheduleResponseDto createMemo(@RequestBody ScheduleRequestDto requestDto) {
-        return scheduleService.createSchedule();
+    public ScheduleResponseDto create(@RequestBody ScheduleRequestDto requestDto) {
+        return scheduleService.createSchedule(requestDto);
     }
 
     @GetMapping("/selectAll")//요청받은 URL 정보를 검색하여 응답한다
     public List<ScheduleResponseDto> getSchedule() {
-        return scheduleService.getMemos();
+        return scheduleService.getSchedule();
     }
 
     @PutMapping("/memos/{id}") //요청된 자원을 수정한다.

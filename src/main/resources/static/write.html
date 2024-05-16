@@ -1,44 +1,70 @@
-<link rel="stylesheet" href="main.css"/>
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <script>
+        function write(){
+            let title = $('#title').val();
+            let passwd = $('#passwd').val();
+            let manager = $('#manager').val();
+            let titleContent = $('#titleContent').val();
+
+            let data = {
+                        'title': title,
+                        'passwd': passwd ,
+                        'manager': manager ,
+                        'titleContent': titleContent
+                        };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/write",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
 </head>
-<div class="form-card1">
-    <div class="form-card2">
-        <form class="form">
-            <p class="form-heading">일정 작성하기</p>
+<body>
+<div >
+    <div >
+            <p >일정 작성하기</p>
 
-            <div class="form-field">
-                <input required="" placeholder="제목" class="input-field" type="text" />
+            <div>
+                <input required="" placeholder="제목" type="text" id="title" />
             </div>
 
-            <div class="form-field">
-                <input
-                        required=""
-                        placeholder="비밀번호"
-                        class="input-field"
-                />
+            <div >
+                <input required="" placeholder="비밀번호" id="passwd"/>
             </div>
 
-            <div class="form-field">
+            <div >
                 <input
                         required=""
                         placeholder="담당자"
-                        class="input-field"
+
                         type="text"
+                        id="manager"
                 />
             </div>
 
-            <div class="form-field">
+            <div >
         <textarea
                 required=""
                 placeholder="내용"
-                cols="30"
-                rows="3"
-                class="input-field"
+                id="titleContent"
         ></textarea>
             </div>
-
-            <button class="sendMessage-btn">Send Message</button>
-        </form>
+            <button onclick="write()">작성하기</button>
     </div>
 </div>
+</body>
