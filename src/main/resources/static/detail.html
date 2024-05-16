@@ -27,6 +27,9 @@
         .input{
             display: none;
         }
+        .deleteSch{
+            display: none;
+        }
 
     </style>
     <script>
@@ -54,6 +57,7 @@
             $(`#titleEdit`).show();
             $(`#manageredit`).show();
             $(`#passwd`).show();
+            $(`#deleteSch`).show();
 
             $(`#back`).hide();
             $(`#editrq`).hide();
@@ -149,6 +153,19 @@
             });
         }
 
+        function deleteInfo(){
+            // 1. DELETE /api/memos/{id} 에 요청해서 메모를 삭제합니다.
+            let passwd = $(`#passwd`).val().trim();
+            $.ajax({
+                type: "DELETE",
+                url: `/api/delete/${id}/${passwd}`,
+                success: function (response) {
+                    alert('메시지 삭제에 성공하였습니다.');
+                    window.location="list.html";
+                }
+            })
+        }
+
     </script>
 </head>
 
@@ -166,6 +183,7 @@
 
         <button class = "edit" id = "edit" onclick= "compEdit()">완료</button>
         <button class = "cancleedit" id = "cancleedit" onclick="editCancle()">취소</button>
+        <button class = "deleteSch" id = "deleteSch" onclick= "deleteInfo()">삭제</button>
 
     </div>
 </div>

@@ -55,14 +55,6 @@ public class ScheduleService {
     @Transactional
     public Long updateSchedule(Long id, String passwd, ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
-
-        System.out.println(requestDto.getManager());
-        System.out.println(requestDto.getTitle());
-        System.out.println(requestDto.getTitleContent());
-        System.out.println(requestDto.getPasswd());
-
-
-
         if(schedule.getPasswd().equals(passwd)){
 
         schedule.update(requestDto);
@@ -73,8 +65,19 @@ public class ScheduleService {
         }
     }
 
-    public String deleteMemo(String title,String passwd) {
-        return null;
+
+    public Long deleteMemo(Long id ,String passwd) {
+        Schedule schedule  = findSchedule(id);
+        System.out.println(schedule.getPasswd());
+        System.out.println(passwd);
+       if(schedule.getPasswd().equals(passwd)) {
+        // memo 삭제
+        scheduleRepository.delete(schedule);
+        return id;
+       } else{
+           throw new IllegalArgumentException("Wrong password");
+       }
+
     }
 
     public Long getLogin(Long id, String passwd) {

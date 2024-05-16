@@ -43,9 +43,9 @@ public class ScheduleController {
         return scheduleService.updateSchedule(id,passwd,requestDto);
     }
 
-    @DeleteMapping("/memos/{id}") //요청된 자원을 삭제 할때 사용
-    public String deleteSchedule(@RequestParam(required = false) String title, String passwd) {
-        return scheduleService.deleteMemo(title,passwd);
+    @DeleteMapping("/delete/{id}/{passwd}") //요청된 자원을 삭제 할때 사용
+    public Long deleteSchedule(@PathVariable(required = false) Long id, @PathVariable String passwd) {
+        return scheduleService.deleteMemo(id ,passwd);
     }
 
 }
