@@ -88,14 +88,15 @@
                     let title = result['title'];
                     let titleContent = result['titleContent'];
                     let manager = result['manager'];
+                    let updateDate = result['updateDate'];
                     let tempHtml =
                     <!-- 게시글 제목 -->
                     `<div>
-                    <h1 >제목 </h1>
-                    <h1 id = "title">${title} </h1>
+                    <h1 > </h1>
+                    <h1 id = "title">제목 : ${title} </h1>
                     <textarea class = "titleEdit" id="titleEdit"></textarea>
                     <!-- 게시글 정보 -->
-                    <p class="post-info">작성일: 2023-08-30</p>
+                    <p class="post-info">작성일: ${updateDate}</p>
                     <p class="post-info" id = "manager">담당자: ${manager} </p>
                     <textarea class = "manageredit" id="manageredit"></textarea>
 
@@ -166,6 +167,10 @@
             })
         }
 
+        function onBack(){
+            window.location="list.html";
+        }
+
     </script>
 </head>
 
@@ -178,7 +183,7 @@
 
     <div>
         <input class="input" name="passwd" type="password" placeholder="Password" id="passwd">
-        <button  class = "back" id="back">뒤로 가기</button>
+        <button  class = "back" id="back" onclick="onBack()">뒤로 가기</button>
         <button  class = "editrq" id = "editrq"onclick="editPost()">수정 하기</button>
 
         <button class = "edit" id = "edit" onclick= "compEdit()">완료</button>
@@ -187,7 +192,5 @@
 
     </div>
 </div>
-
 </body>
-
 </html>

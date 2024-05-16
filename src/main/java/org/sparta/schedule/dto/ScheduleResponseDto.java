@@ -14,8 +14,8 @@ public class ScheduleResponseDto {
     private String titleContent;
     private String manager;
     private String passwd;
-    private LocalDateTime writeDate;
-    private LocalDateTime updateDate;
+    private String writeDate;
+    private String updateDate;
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
@@ -23,8 +23,8 @@ public class ScheduleResponseDto {
         this.titleContent = schedule.getTitleContent();
         this.manager = schedule.getManager();
         this.passwd = schedule.getPasswd();
-//        this.writeDate= schedule.getWriteDate();
-//        this.updateDate= schedule.getUpdateDate();
+        this.writeDate= schedule.getWriteDate();
+        this.updateDate= schedule.getUpdateDate();
 
     }
 

@@ -18,10 +18,6 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @GetMapping("/login")
-    public Long login(@RequestBody Long id, @RequestBody String passwd){
-        return scheduleService.getLogin(id, passwd);
-    }
 
     @PostMapping("/write")//클라이언트의 요청 데이터(Request Body)를 서버에 생성할 때 사용
     public ScheduleResponseDto create(@RequestBody ScheduleRequestDto requestDto) {

@@ -80,10 +80,6 @@ public class ScheduleService {
 
     }
 
-    public Long getLogin(Long id, String passwd) {
-        return null;
-    }
-
 
     private Schedule findSchedule(Long id) {
         return scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 메모는 존재하지 않습니다."));
