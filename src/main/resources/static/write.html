@@ -1,0 +1,71 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div >
+    <div >
+            <p >일정 작성하기</p>
+
+            <div>
+                <input required="" placeholder="제목" type="text" id="title" />
+            </div>
+
+            <div >
+                <input required="" placeholder="비밀번호" id="passwd"/>
+            </div>
+
+            <div >
+                <input
+                        required=""
+                        placeholder="담당자"
+
+                        type="text"
+                        id="manager"
+                />
+            </div>
+
+            <div >
+        <textarea
+                required=""
+                placeholder="내용"
+                id="titleContent"
+        ></textarea>
+            </div>
+            <button onclick="insertrequest()">작성하기</button>
+    </div>
+</div>
+<script type = "text/javascript">
+    function insertrequest(){
+        let title = $('#title').val();
+        let passwd = $('#passwd').val();
+        let manager = $('#manager').val();
+        let titleContent = $('#titleContent').val();
+
+        let data = {
+            'title': title,
+            'passwd': passwd ,
+            'manager': manager ,
+            'titleContent': titleContent
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/write",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                alert('성공적으로 작성되었습니다.');
+                window.location="list.html";
+            }
+        });
+    }
+</script>
+</body>

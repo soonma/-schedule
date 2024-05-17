@@ -1,0 +1,79 @@
+<html>
+<!-- main.css 스타일시트 가져오기 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <script>
+        // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
+        function loginCheck(id,passwd) {
+            if (id == '') {
+                alert('내용을 입력해주세요');
+                return false;
+            }
+            if (passwd == '') {
+                alert('내용을 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+        // 메모를 생성합니다.
+        function login() {
+            // 1. 작성한 메모를 불러옵니다.
+            let id = $('#id').val();
+            let passwd = $('#passwd').val();
+            // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+            if (loginCheck(id,passwd) == false) {
+                return;
+            }
+
+            // 4. 전달할 data JSON으로 만듭니다.
+            let data = {'id': id, 'passwd': passwd};
+
+            // 5. POST /api/memos 에 data를 전달합니다.
+            $.ajax({
+                type: "GET",
+                url: "/api/login/",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지가 성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
+    <title>LOGIN</title>
+</head>
+<body>
+
+<div class="main">
+    <form class="form card" method="get">
+        <div class="card_header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor"
+                      d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"></path>
+            </svg>
+            <h1 class="form_heading">Sign in</h1>
+        </div>
+        <div class="field">
+            <label for="id">ID</label>
+            <input class="input" name="id" type="text" placeholder="id" id="id">
+        </div>
+        <div class="field">
+            <label for="passwd">Password</label>
+            <input class="input" name="passwd" type="password" placeholder="Password" id="passwd">
+        </div>
+        <div class="field">
+            <button class="button" onclick=login()>Login</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
