@@ -71,17 +71,16 @@
 
 
         $(document).ready(function () {
-            // HTML 문서를 로드할 때마다 실행합니다.
+
             getMessages();
         })
 
-        // 메모를 불러와서 보여줍니다.
         function getMessages() {
 
-            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+
             $.ajax({
                 type: 'GET',
-                url: `/api/selectDetail/${id}`,
+                url: `/api/schedule/${id}`,
                 success: function (response) {
                     let result = response;
                     let id = result['id'];
@@ -132,7 +131,6 @@
             let manager = $(`#manageredit`).val().trim();
             let passwd = $(`#passwd`).val().trim();
 
-            // 3. 전달할 data JSON으로 만듭니다.
             let data = {
                 'id': id,
                 'titleContent': titleContent,
@@ -144,7 +142,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: `/api/edit/${id}/passwd/${passwd}`,
+                url: `/api/schedule/${id}`,
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (response) {
@@ -155,11 +153,16 @@
         }
 
         function deleteInfo(){
-            // 1. DELETE /api/memos/{id} 에 요청해서 메모를 삭제합니다.
             let passwd = $(`#passwd`).val().trim();
+            let data = {
+                'id': id,
+                'passwd': passwd
+            };
             $.ajax({
                 type: "DELETE",
-                url: `/api/delete/${id}/${passwd}`,
+                url: `/api/schedule/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
                 success: function (response) {
                     alert('메시지 삭제에 성공하였습니다.');
                     window.location="list.html";

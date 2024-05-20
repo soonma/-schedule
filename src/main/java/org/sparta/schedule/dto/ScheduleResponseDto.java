@@ -13,7 +13,6 @@ public class ScheduleResponseDto {
     private String title;
     private String titleContent;
     private String manager;
-    private String passwd;
     private String writeDate;
     private String updateDate;
 
@@ -22,10 +21,7 @@ public class ScheduleResponseDto {
         this.title = schedule.getTitle();
         this.titleContent = schedule.getTitleContent();
         this.manager = schedule.getManager();
-        this.passwd = schedule.getPasswd();
         this.writeDate= schedule.getWriteDate();
         this.updateDate= schedule.getUpdateDate();
-
     }
-
 }

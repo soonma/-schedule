@@ -23,7 +23,7 @@
             // 2. 메모 목록을 불러와서 HTML로 붙입니다.
             $.ajax({
                 type: 'GET',
-                url: '/api/selectAll',
+                url: '/api/schedule',
                 success: function (response) {
                     for (let i = 0; i < response.length; i++) {
                         let schedule = response[i];
@@ -32,7 +32,7 @@
                         let manager = schedule['manager'];
                         let writeDate = schedule['writeDate'];
 
-                        //let modifiedAt = message['modifiedAt'];
+                         //let modifiedAt = message['modifiedAt'];
 
                         let tempHtml= `<tr>
                             <th>

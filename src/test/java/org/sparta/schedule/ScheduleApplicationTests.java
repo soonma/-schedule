@@ -24,7 +24,6 @@ class ScheduleApplicationTests {
     @DisplayName("데이터 생성 성공")
     void test1() {
         Schedule schedule = new Schedule();
-        schedule.setId("fltnsah");
         schedule.setPasswd("1q2w3e4r");
         schedule.setManager("??");
         schedule.setTitleContent("테스트 중입니다.");
