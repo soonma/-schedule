@@ -33,6 +33,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule/{id}")//요청받은 URL 정보를 검색하여 응답한다
+    @ExceptionHandler()
     public ScheduleResponseDto getDetailSchedule(@PathVariable Long id) {
         return scheduleService.getDetailSchedule(id);
     }

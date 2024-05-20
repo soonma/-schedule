@@ -2,7 +2,7 @@ package org.sparta.schedule.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.apache.catalina.util.StringUtil;
+import org.sparta.schedule.ScheduleError;
 import org.sparta.schedule.dto.ScheduleRequestDto;
 import org.sparta.schedule.dto.ScheduleResponseDto;
 import org.sparta.schedule.entity.Schedule;
@@ -10,6 +10,7 @@ import org.sparta.schedule.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
@@ -71,12 +72,13 @@ public class ScheduleService {
     }
 
     @Transactional
+    @ExceptionHandler(ScheduleError.class)
     public Long deleteMemo(Long id ,ScheduleRequestDto requestDto) {
+
         Schedule schedule  = findSchedule(id);
         System.out.println(schedule.getPasswd());
 
        if(schedule.getPasswd().equals(requestDto.getPasswd())) {
-
         scheduleRepository.delete(schedule);
         return id;
        } else{

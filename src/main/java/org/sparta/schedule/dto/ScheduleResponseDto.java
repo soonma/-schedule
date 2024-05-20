@@ -2,7 +2,7 @@ package org.sparta.schedule.dto;
 
 import lombok.Getter;
 import org.sparta.schedule.entity.Schedule;
-import java.time.LocalDateTime;
+
 
 
 @Getter
