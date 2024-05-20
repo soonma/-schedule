@@ -2,37 +2,37 @@ package org.sparta.schedule.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.apache.catalina.util.StringUtil;
 import org.sparta.schedule.dto.ScheduleRequestDto;
 import org.sparta.schedule.dto.ScheduleResponseDto;
 import org.sparta.schedule.entity.Schedule;
 import org.sparta.schedule.repository.ScheduleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
 
 @Service
-@Component
+@Transactional
 public class ScheduleService {
     @PersistenceContext
     EntityManager em;
 
-    @Autowired
+
     private final ScheduleRepository scheduleRepository;
 
-    @Autowired
+
     public ScheduleService(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
 
 
     public List<ScheduleResponseDto> getSchedule() {
-        return scheduleRepository.findAll().stream().map(ScheduleResponseDto::new).toList();
+        return scheduleRepository.findAllByOrderByWriteDateDesc().stream().map(ScheduleResponseDto::new).toList();
     }
-
+    @Transactional
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
         // RequestDto -> Entity
         Schedule schedule = new Schedule(requestDto);
@@ -49,29 +49,34 @@ public class ScheduleService {
         Schedule schedule = findSchedule(id);
         System.out.println(id);
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+
+
         return scheduleResponseDto;
+
     }
 
     @Transactional
-    public Long updateSchedule(Long id, String passwd, ScheduleRequestDto requestDto) {
+    public Long updateSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
-        if(schedule.getPasswd().equals(passwd)){
 
-        schedule.update(requestDto);
+        boolean haspasswd = StringUtils.hasLength(requestDto.getPasswd());//null 일경우 false 반환
+        boolean checkpasswd = schedule.getPasswd().equals(requestDto.getPasswd());
 
+        if(haspasswd&&checkpasswd){
+            schedule.update(requestDto);
         return id;
         } else {
             throw new IllegalArgumentException("Wrong password");
         }
     }
 
-
-    public Long deleteMemo(Long id ,String passwd) {
+    @Transactional
+    public Long deleteMemo(Long id ,ScheduleRequestDto requestDto) {
         Schedule schedule  = findSchedule(id);
         System.out.println(schedule.getPasswd());
-        System.out.println(passwd);
-       if(schedule.getPasswd().equals(passwd)) {
-        // memo 삭제
+
+       if(schedule.getPasswd().equals(requestDto.getPasswd())) {
+
         scheduleRepository.delete(schedule);
         return id;
        } else{
