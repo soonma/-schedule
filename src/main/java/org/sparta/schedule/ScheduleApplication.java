@@ -12,4 +12,6 @@ public class ScheduleApplication {
         SpringApplication.run(ScheduleApplication.class, args);
     }
 
+    public static class ErrorResponse {
+    }
 }
