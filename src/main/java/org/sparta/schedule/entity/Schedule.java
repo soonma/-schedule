@@ -5,11 +5,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.sparta.schedule.dto.ScheduleRequestDto;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -34,13 +40,25 @@ public class Schedule extends Timestamped{
     @Column(name = "passwd")
     private String passwd;
 
+    @OneToMany(mappedBy = "sch_id")
+//    @JoinColumn(name = "sch_id")
+    private List<Comment> comments = new ArrayList<>();
+
+
+
     public Schedule(ScheduleRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.titleContent = requestDto.getTitleContent();
         this.manager = requestDto.getManager();
         this.passwd = requestDto.getPasswd();
     }
-
+    public Schedule(ScheduleRequestDto requestDto,Comment comment){
+        this.title = requestDto.getTitle();
+        this.titleContent = requestDto.getTitleContent();
+        this.manager = requestDto.getManager();
+        this.passwd = requestDto.getPasswd();
+        this.comments.add(comment);
+    }
     public void update(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.titleContent = requestDto.getTitleContent();

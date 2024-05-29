@@ -2,6 +2,9 @@ package org.sparta.schedule.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sparta.schedule.ErrorCode;
 import org.sparta.schedule.ScheduleError;
 import org.sparta.schedule.dto.ScheduleRequestDto;
 import org.sparta.schedule.dto.ScheduleResponseDto;
@@ -18,6 +21,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ScheduleService {
+    private static final Logger log = LoggerFactory.getLogger(ScheduleService.class);
     @PersistenceContext
     EntityManager em;
 
@@ -67,7 +71,7 @@ public class ScheduleService {
             schedule.update(requestDto);
         return id;
         } else {
-            throw new IllegalArgumentException("Wrong password");
+            throw new ScheduleError("비밀번호가 일치 하지 않습니다.", ErrorCode.NOT_SAME_PASSWD);
         }
     }
 
