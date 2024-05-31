@@ -5,11 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.sparta.schedule.dto.ScheduleRequestDto;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -33,6 +36,11 @@ public class Schedule extends Timestamped{
 
     @Column(name = "passwd")
     private String passwd;
+
+    @OneToMany(mappedBy = "sch_id")
+    private List<Comment> comments = new ArrayList<>();
+
+
 
     public Schedule(ScheduleRequestDto requestDto){
         this.title = requestDto.getTitle();
